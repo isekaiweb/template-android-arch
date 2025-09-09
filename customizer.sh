@@ -17,16 +17,18 @@ PACKAGE=$1
 APPNAME=$2
 APPNAME_LOWER=${APPNAME,,} # lowercase app name
 SUBDIR=${PACKAGE//.//} # Replaces . with /
-
-for n in $(find . -type d \( -path '*/src/main') )
+for n in $(find . -type d -path '*/src/main')
 do
   echo "Creating $n/java/$SUBDIR"
-  mkdir -p $n/java/$SUBDIR
+  mkdir -p "$n/java/$SUBDIR"
+
   echo "Moving files to $n/java/$SUBDIR"
-  mv $n/java/android/template/* $n/java/$SUBDIR
+  mv "$n/java/android/template"/* "$n/java/$SUBDIR"
+
   echo "Removing old $n/java/android/template"
-  rm -rf mv $n/java/android
+  rm -rf mv "$n/java/android"
 done
+
 
 # Rename package and imports
 echo "Renaming packages to $PACKAGE"
