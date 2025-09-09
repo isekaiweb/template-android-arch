@@ -32,12 +32,18 @@ for n in $(find . -type d -path '*/src/main'); do
     rmdir --ignore-fail-on-non-empty "$n/kotlin/com/example" 2>/dev/null || true
     rmdir --ignore-fail-on-non-empty "$n/kotlin/com" 2>/dev/null || true
   fi
+done
 
 # Update package and import statements in Kotlin files
 echo "Updating package and import statements in .kt files..."
 find . -type f -name "*.kt" -exec sed -i.bak \
   -e "s/package com\.example\.template/package $PACKAGE/g" \
   -e "s/import com\.example\.template/import $PACKAGE/g" {} \;
+
+# Update plugin application in Kotlin files
+echo "Updating plugin application in .kt files..."
+find . -type f -name "*.kt" -exec sed -i.bak \
+  -e "s/apply(plugin = \"template\.android\.lint\")/apply(plugin = \"${APPNAME_LOWER}.android.lint\")/g" {} \;
 
 # Update references in Gradle scripts
 echo "Updating references in .kts files..."
@@ -66,6 +72,6 @@ find . -name "*.bak" -type f -delete
 
 # Remove template and meta files
 echo "Removing template and meta files..."
-rm -rf .google/ .github/ CONTRIBUTING.md LICENSE README.md customizer.sh .git/
+rm -rf README.md customizer.sh .git/
 
 echo "Project customization complete!"
