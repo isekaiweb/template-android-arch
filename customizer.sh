@@ -25,19 +25,13 @@ echo "Application name: $APPNAME"
 
 # Move Kotlin source files to new package directory
 for n in $(find . -type d -path '*/src/main'); do
-  echo "Ensuring directory $n/kotlin/$SUBDIR exists"
-  mkdir -p "$n/kotlin/$SUBDIR"
   if [ -d "$n/kotlin/com/example/template" ]; then
-    echo "Moving files from $n/kotlin/com/example/template to $n/kotlin/$SUBDIR"
-    mv "$n/kotlin/com/example/template"/* "$n/kotlin/$SUBDIR"
-    echo "Removing old template directory: $n/kotlin/com/example/template"
-    rm -rf "$n/kotlin/com/example/template"
-    if [ -d "$n/kotlin/com/example" ] && [ -z "$(ls -A "$n/kotlin/com/example")" ]; then
-      echo "Removing empty directory: $n/kotlin/com/example"
-      rmdir "$n/kotlin/com/example"
-    fi
+    echo "Renaming $n/kotlin/com/example/template to $n/kotlin/$SUBDIR"
+    mv "$n/kotlin/com/example/template" "$n/kotlin/$SUBDIR"
+    # Remove empty parent directories
+    rmdir --ignore-fail-on-non-empty "$n/kotlin/com/example" 2>/dev/null || true
+    rmdir --ignore-fail-on-non-empty "$n/kotlin/com" 2>/dev/null || true
   fi
-done
 
 # Update package and import statements in Kotlin files
 echo "Updating package and import statements in .kt files..."
