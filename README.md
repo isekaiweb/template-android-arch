@@ -27,10 +27,8 @@ For the customizer to work, dont open the project in Android Studio yet.
 2. Run the customizer script:
 
 ```
-./customizer.sh com.example.template DataItemType [MyApplication]
+./customizer.sh com.example.template  [MyApplication]
 ```
 
 * `your.package.name` is your app ID (should be lowercase)
-* `DataItemType` is used for the name of the screen, exposed state and data base entity
-  (should be PascalCase).
 * Optionally, you can specify a name for your application (should be in PascalCase).
