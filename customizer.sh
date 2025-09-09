@@ -49,6 +49,8 @@ find ./ -type f -name "*.toml" -exec sed -i.bak "s/template\./$APPNAME_LOWER./g"
 
 echo "Updating plugin references from 'template' to '$APPNAME_LOWER'..."
 find ./ -type f -name "*.kts" -exec sed -i.bak "s/libs\.plugins\.template/libs.plugins.$APPNAME_LOWER/g" {} \;
+find ./ -type f -name "*.kts" -exec sed -i.bak "s/apply(plugin = \"template\./apply(plugin = \"${APPNAME_LOWER}./g" {} \;
+
 
 echo "Cleaning up"
 find . -name "*.bak" -type f -delete
