@@ -1,7 +1,7 @@
 Architecture starter template (multi-module)
 ==================
 
-This template is based on NowInAndroid (https://github.com/android/nowinandroid) project.
+This template is based on [NowInAndroid](https://github.com/android/nowinandroid) project.
 
     
 ## Features
@@ -21,7 +21,7 @@ This template is based on NowInAndroid (https://github.com/android/nowinandroid)
 1. Clone this branch
 
 ```
-git clone https://github.com/android/architecture-templates.git 
+git clone https://github.com/isekaiweb/template-android-arch.git
 ```
 
 2. Run the customizer script:
