@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Verify bash version. macOS comes with bash 3 preinstalled.
 if [[ ${BASH_VERSINFO[0]} -lt 4 ]]
 then
@@ -5,7 +7,6 @@ then
   exit 1
 fi
 
-# exit when any command fails
 set -e
 
 if [[ $# -lt 1 ]]; then
@@ -15,30 +16,27 @@ fi
 
 PACKAGE=$1
 APPNAME=$2
-APPNAME_LOWER=${APPNAME,,} # lowercase app name
-SUBDIR=${PACKAGE//.//} # Replaces . with /
+APPNAME_LOWER=${APPNAME,,}
+SUBDIR=${PACKAGE//.//}
+
 for n in $(find . -type d -path '*/src/main')
 do
-  echo "Creating $n/java/$SUBDIR"
-  mkdir -p "$n/java/$SUBDIR"
+  echo "Creating $n/kotlin/$SUBDIR"
+  mkdir -p "$n/kotlin/$SUBDIR"
 
-  echo "Moving files to $n/java/$SUBDIR"
-  mv "$n/java/android/template"/* "$n/java/$SUBDIR"
+  echo "Moving files to $n/kotlin/$SUBDIR"
+  mv "$n/kotlin/android/template"/* "$n/kotlin/$SUBDIR"
 
-  echo "Removing old $n/java/android/template"
-  rm -rf mv "$n/java/android"
+  echo "Removing old $n/kotlin/android/template"
+  rm -rf "$n/kotlin/android"
 done
 
-
-# Rename package and imports
 echo "Renaming packages to $PACKAGE"
 find ./ -type f -name "*.kt" -exec sed -i.bak "s/package android.template/package $PACKAGE/g" {} \;
 find ./ -type f -name "*.kt" -exec sed -i.bak "s/import android.template/import $PACKAGE/g" {} \;
 
-# Gradle files
 find ./ -type f -name "*.kts" -exec sed -i.bak "s/android.template/$PACKAGE/g" {} \;
 
-# Rename plugin IDs and keys in TOML files (template → app name lowercase)
 echo "Renaming template plugin keys/IDs in TOML files to $APPNAME_LOWER"
 find ./ -type f -name "*.toml" -exec sed -i.bak "s/template-/$APPNAME_LOWER-/g" {} \;
 find ./ -type f -name "*.toml" -exec sed -i.bak "s/template\./$APPNAME_LOWER./g" {} \;
@@ -46,7 +44,6 @@ find ./ -type f -name "*.toml" -exec sed -i.bak "s/template\./$APPNAME_LOWER./g"
 echo "Cleaning up"
 find . -name "*.bak" -type f -delete
 
-# Rename app
 if [[ $APPNAME != TemplateApp ]]
 then
     echo "Renaming app to $APPNAME"
@@ -55,7 +52,6 @@ then
     find . -name "*.bak" -type f -delete
 fi
 
-# Remove additional files
 echo "Removing additional files"
 rm -rf .google/
 rm -rf .github/
