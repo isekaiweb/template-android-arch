@@ -29,6 +29,11 @@ do
     mv "$n/kotlin/com/example/template"/* "$n/kotlin/$SUBDIR"
     echo "Removing old $n/kotlin/com/example/template"
     rm -rf "$n/kotlin/com/example/template"
+    # Remove empty com/example if exists
+    if [ -d "$n/kotlin/com/example" ] && [ -z "$(ls -A "$n/kotlin/com/example")" ]; then
+      echo "Removing empty $n/kotlin/com/example"
+      rmdir "$n/kotlin/com/example"
+    fi
   fi
 done
 
@@ -42,14 +47,17 @@ echo "Renaming template plugin keys/IDs in TOML files to $APPNAME_LOWER"
 find ./ -type f -name "*.toml" -exec sed -i.bak "s/template-/$APPNAME_LOWER-/g" {} \;
 find ./ -type f -name "*.toml" -exec sed -i.bak "s/template\./$APPNAME_LOWER./g" {} \;
 
+echo "Updating plugin references from 'template' to '$APPNAME_LOWER'..."
+find ./ -type f -name "*.kts" -exec sed -i.bak "s/libs\.plugins\.template/libs.plugins.$APPNAME_LOWER/g" {} \;
+
 echo "Cleaning up"
 find . -name "*.bak" -type f -delete
 
 if [[ $APPNAME != TemplateApp ]]
 then
     echo "Renaming app to $APPNAME"
-    find ./ -type f \( -name "TemplateApp.kt" -or -name "settings.gradle.kts" -or -name "*.xml" \) -exec sed -i.bak "s/TemplateApp/$APPNAME/g" {} \;
-    find ./ -name "TemplateApp.kt" | sed "p;s/TemplateApp/$APPNAME/" | tr '\n' '\0' | xargs -0 -n 2 mv
+    find ./ -type f \( -name "TemplateApp.kt" -or -name "settings.gradle.kts" -or -name "*.xml" \) -exec sed -i.bak "s/TemplateApp/${APPNAME}App/g" {} \;
+    find ./ -name "TemplateApp.kt" | sed "p;s/TemplateApp/${APPNAME}App/" | tr '\n' '\0' | xargs -0 -n 2 mv
     find . -name "*.bak" -type f -delete
 fi
 
