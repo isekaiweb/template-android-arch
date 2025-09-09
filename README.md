@@ -18,22 +18,19 @@ This template is based on [NowInAndroid](https://github.com/android/nowinandroid
 
 ## Usage
 
-1. Clone this branch
+1. Clone the repository, optionally choosing a branch and a target directory. For example, to check out the base branch:
 
 ```
-git clone https://github.com/isekaiweb/template-android-arch.git
+git clone https://github.com/isekaiweb/template-android-arch.git --branch main targetDirectory
 ```
-
+For the customizer to work, dont open the project in Android Studio yet.
 2. Run the customizer script:
 
 ```
 ./customizer.sh com.example.template DataItemType [MyApplication]
 ```
 
-Where `your.package.name` is your app ID (should be lowercase) and `DataItemType` is used for the
-name of the screen, exposed state and data base entity (should be PascalCase). You can add an optional application name.
-
-# License
-
-Now in Android is distributed under the terms of the Apache License (Version 2.0). See the
-[license](LICENSE) for more information.
+* `your.package.name` is your app ID (should be lowercase)
+* `DataItemType` is used for the name of the screen, exposed state and data base entity
+  (should be PascalCase).
+* Optionally, you can specify a name for your application (should be in PascalCase).
