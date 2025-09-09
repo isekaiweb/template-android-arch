@@ -25,17 +25,17 @@ do
   mkdir -p "$n/kotlin/$SUBDIR"
 
   echo "Moving files to $n/kotlin/$SUBDIR"
-  mv "$n/kotlin/android/template"/* "$n/kotlin/$SUBDIR"
+  mv "$n/kotlin/com/example/template"/* "$n/kotlin/$SUBDIR"
 
-  echo "Removing old $n/kotlin/android/template"
+  echo "Removing old $n/kotlin/com/example/template"
   rm -rf "$n/kotlin/android"
 done
 
 echo "Renaming packages to $PACKAGE"
-find ./ -type f -name "*.kt" -exec sed -i.bak "s/package android.template/package $PACKAGE/g" {} \;
-find ./ -type f -name "*.kt" -exec sed -i.bak "s/import android.template/import $PACKAGE/g" {} \;
+find ./ -type f -name "*.kt" -exec sed -i.bak "s/package com.example.template/package $PACKAGE/g" {} \;
+find ./ -type f -name "*.kt" -exec sed -i.bak "s/import com.example.template/import $PACKAGE/g" {} \;
 
-find ./ -type f -name "*.kts" -exec sed -i.bak "s/android.template/$PACKAGE/g" {} \;
+find ./ -type f -name "*.kts" -exec sed -i.bak "s/com.example.template/$PACKAGE/g" {} \;
 
 echo "Renaming template plugin keys/IDs in TOML files to $APPNAME_LOWER"
 find ./ -type f -name "*.toml" -exec sed -i.bak "s/template-/$APPNAME_LOWER-/g" {} \;
