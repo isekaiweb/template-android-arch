@@ -18,7 +18,7 @@ APPNAME=$2
 APPNAME_LOWER=${APPNAME,,} # lowercase app name
 SUBDIR=${PACKAGE//.//} # Replaces . with /
 
-for n in $(find . -type d \( -path '*/src/androidTest' -or -path '*/src/main' -or -path '*/src/test' \) )
+for n in $(find . -type d \( -path '*/src/main') )
 do
   echo "Creating $n/java/$SUBDIR"
   mkdir -p $n/java/$SUBDIR
@@ -37,8 +37,6 @@ find ./ -type f -name "*.kt" -exec sed -i.bak "s/import android.template/import 
 find ./ -type f -name "*.kts" -exec sed -i.bak "s/android.template/$PACKAGE/g" {} \;
 
 # Rename plugin IDs and keys in TOML files (template → app name lowercase)
-
-
 echo "Renaming template plugin keys/IDs in TOML files to $APPNAME_LOWER"
 find ./ -type f -name "*.toml" -exec sed -i.bak "s/template-/$APPNAME_LOWER-/g" {} \;
 find ./ -type f -name "*.toml" -exec sed -i.bak "s/template\./$APPNAME_LOWER./g" {} \;
@@ -46,25 +44,12 @@ find ./ -type f -name "*.toml" -exec sed -i.bak "s/template\./$APPNAME_LOWER./g"
 echo "Cleaning up"
 find . -name "*.bak" -type f -delete
 
-# Rename files
-echo "Renaming files to $DATAMODEL"
-find ./ -name "*MyModel*.kt" | sed "p;s/MyModel/${DATAMODEL^}/" | tr '\n' '\0' | xargs -0 -n 2 mv
-# module names
-if [[ -n $(find ./ -name "*-mymodel") ]]
-then
-  echo "Renaming modules to $DATAMODEL"
-  find ./ -name "*-mymodel" -type d  | sed "p;s/mymodel/${DATAMODEL,,}/" |  tr '\n' '\0' | xargs -0 -n 2 mv
-fi
-# directories
-echo "Renaming directories to $DATAMODEL"
-find ./ -name "mymodel" -type d  | sed "p;s/mymodel/${DATAMODEL,,}/" |  tr '\n' '\0' | xargs -0 -n 2 mv
-
 # Rename app
-if [[ $APPNAME != MyApplication ]]
+if [[ $APPNAME != TemplateApp ]]
 then
     echo "Renaming app to $APPNAME"
-    find ./ -type f \( -name "MyApplication.kt" -or -name "settings.gradle.kts" -or -name "*.xml" \) -exec sed -i.bak "s/MyApplication/$APPNAME/g" {} \;
-    find ./ -name "MyApplication.kt" | sed "p;s/MyApplication/$APPNAME/" | tr '\n' '\0' | xargs -0 -n 2 mv
+    find ./ -type f \( -name "TemplateApp.kt" -or -name "settings.gradle.kts" -or -name "*.xml" \) -exec sed -i.bak "s/TemplateApp/$APPNAME/g" {} \;
+    find ./ -name "TemplateApp.kt" | sed "p;s/TemplateApp/$APPNAME/" | tr '\n' '\0' | xargs -0 -n 2 mv
     find . -name "*.bak" -type f -delete
 fi
 
