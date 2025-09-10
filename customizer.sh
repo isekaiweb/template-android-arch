@@ -46,6 +46,8 @@ echo "Updating plugin references from 'template' to '$APPNAME_LOWER'..."
 find ./ -type f -name "*.kts" -exec sed -i.bak "s/libs\.plugins\.template/libs.plugins.$APPNAME_LOWER/g" {} \;
 find ./ -type f -name "*.kt" -exec sed -i.bak "s/apply(plugin = \"template\.android\.lint\")/apply(plugin = \"${APPNAME_LOWER}.android.lint\")/g" {} \;
 
+echo "Renaming rootProject.name  from 'template' to '$APPNAME'"
+sed -i.bak "s/rootProject\.name = \".*\"/rootProject.name = \"${APPNAME}\"/g" settings.gradle.kts
 
 
 echo "Cleaning up"
@@ -60,8 +62,6 @@ then
 fi
 
 echo "Removing additional files"
-rm -rf .google/
-rm -rf .github/
-rm -rf CONTRIBUTING.md LICENSE README.md customizer.sh
+rm -rf  README.md customizer.sh
 rm -rf .git/
 echo "Done!"
