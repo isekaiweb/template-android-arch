@@ -19,22 +19,16 @@ APPNAME=${2:-Template}
 APPNAME_LOWER=${APPNAME,,}
 SUBDIR=${PACKAGE//.//}
 
-for n in $(find . -type d -path '*/src/main'); do
+for n in $(find . -type d -path '*/src/main')
+do
   echo "Creating $n/kotlin/$SUBDIR"
   mkdir -p "$n/kotlin/$SUBDIR"
 
-  SRC="$n/kotlin/com/example/template"
-  if [ -d "$SRC" ]; then
+  if [ -d "$n/kotlin/com/example/template" ]; then
     echo "Moving files to $n/kotlin/$SUBDIR"
-    mv "$SRC"/* "$n/kotlin/$SUBDIR" 2>/dev/null
-
-    # Recreate empty directories
-    find "$SRC" -type d -empty | while read -r d; do
-      mkdir -p "$n/kotlin/$SUBDIR/${d#$SRC/}"
-    done
-
-    echo "Removing old $SRC"
-    rm -rf "$SRC"
+    mv "$n/kotlin/com/example/template"/* "$n/kotlin/$SUBDIR"
+    echo "Removing old $n/kotlin/com/example/template"
+    rm -rf "$n/kotlin/com"
   fi
 done
 
