@@ -20,8 +20,10 @@ class AndroidFeaturePresentationConventionPlugin : Plugin<Project> {
             }
 
             dependencies {
-                "implementation"(project(":core:presentation:ui"))
-                "implementation"(project(":core:presentation:designsystem"))
+                "implementation"(project(":core:ui"))
+                "implementation"(project(":core:common"))
+                "implementation"(project(":core:designsystem"))
+
 
                 "implementation"(libs.findLibrary("androidx.hilt.navigation.compose").get())
                 "implementation"(libs.findLibrary("androidx.lifecycle.runtimeCompose").get())

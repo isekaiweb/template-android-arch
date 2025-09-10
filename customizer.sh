@@ -46,6 +46,11 @@ echo "Updating plugin references from 'template' to '$APPNAME_LOWER'..."
 find ./ -type f -name "*.kts" -exec sed -i.bak "s/libs\.plugins\.template/libs.plugins.$APPNAME_LOWER/g" {} \;
 find ./ -type f -name "*.kt" -exec sed -i.bak "s/apply(plugin = \"template\.android\.lint\")/apply(plugin = \"${APPNAME_LOWER}.android.lint\")/g" {} \;
 
+# Replace 'Template' (uppercase) with app name, and 'template' (lowercase) with lowercased app name
+echo  "Renaming files Template to $APPNAME and template to $APPNAME_LOWER"
+find ./ -type f -exec sed -i.bak "s/Template/${APPNAME}/g" {} \;
+find ./ -type f -exec sed -i.bak "s/template/${APPNAME_LOWER}/g" {} \;
+
 echo "Renaming rootProject.name  from 'template' to '$APPNAME'"
 sed -i.bak "s/rootProject\.name = \".*\"/rootProject.name = \"${APPNAME}\"/g" settings.gradle.kts
 

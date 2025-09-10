@@ -29,9 +29,10 @@ dependencyResolutionManagement {
 rootProject.name = "template"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
-include(":core:presentation:ui")
-include(":core:presentation:designsystem")
-include(":core:data:network")
+include(":core:ui")
+include(":core:designsystem")
+include(":core:network")
+include(":core:common")
 
 check(JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_17)) {
     """

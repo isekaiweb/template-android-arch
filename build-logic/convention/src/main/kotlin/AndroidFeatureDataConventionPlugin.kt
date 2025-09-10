@@ -20,7 +20,8 @@ class AndroidFeatureDataConventionPlugin : Plugin<Project> {
             }
 
             dependencies {
-                "implementation"(project(":core:data:network"))
+                "implementation"(project(":core:network"))
+                "implementation"(project(":core:common"))
 
                 "implementation"(libs.findLibrary("retrofit.core").get())
                 "implementation"(libs.findLibrary("androidx.tracing.ktx").get())

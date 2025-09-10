@@ -49,9 +49,9 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.presentation.ui)
-    implementation(projects.core.presentation.designsystem)
-    implementation(projects.core.data.network)
+    implementation(projects.core.ui)
+    implementation(projects.core.designsystem)
+    implementation(projects.core.network)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
