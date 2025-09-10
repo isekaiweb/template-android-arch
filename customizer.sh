@@ -55,7 +55,7 @@ echo "Step 6b: Renaming files and folders containing 'Template' or 'template'...
 find . -depth -name '*Template*' -exec bash -c '
   for path; do
     new="$(dirname "$path")/$(basename "$path" | sed "s/Template/'"${APPNAME}"'/g")"
-    if [[ "$path" != "$new" ]]; then
+    if [[ -n "$new" && "$path" != "$new" && -e "$path" ]]; then
       echo "Renaming $path to $new"
       mv "$path" "$new"
     fi
@@ -65,7 +65,7 @@ find . -depth -name '*Template*' -exec bash -c '
 find . -depth -name '*template*' -exec bash -c '
   for path; do
     new="$(dirname "$path")/$(basename "$path" | sed "s/template/'"${APPNAME_LOWER}"'/g")"
-    if [[ "$path" != "$new" ]]; then
+    if [[ -n "$new" && "$path" != "$new" && -e "$path" ]]; then
       echo "Renaming $path to $new"
       mv "$path" "$new"
     fi
