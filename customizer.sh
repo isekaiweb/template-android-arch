@@ -21,15 +21,13 @@ SUBDIR=${PACKAGE//.//}
 
 for n in $(find . -type d -path '*/src/main')
 do
-  echo "Creating $n/kotlin/$SUBDIR"
-  mkdir -p "$n/kotlin/$SUBDIR"
-
-  if [ -d "$n/kotlin/com/example/template" ]; then
-    echo "Moving files to $n/kotlin/$SUBDIR"
-    mv "$n/kotlin/com/example/template" "$n/kotlin/$SUBDIR"
-    echo "Removing old $n/kotlin/com/example/template"
-    rm -rf "$n/kotlin/com"
-  fi
+  echo "Creating $n/java/$SUBDIR"
+  mkdir -p $n/kotlin/$SUBDIR
+  echo "Moving files to $n/kotlin/$SUBDIR"
+  mv $n/kotlin/com/example/template/* $n/kotlin/$SUBDIR
+  find $n/kotlin/com/example/template -type d -empty -exec mv {} $n/kotlin/$SUBDIR \;
+  echo "Removing old $n/java/android/template"
+  rm -rf $n/kotlin/com
 done
 
 echo "Renaming packages to $PACKAGE"
