@@ -21,12 +21,12 @@ BACKUP_DIR=".customizer_backup_$(date +%s)"
 
 echo "Creating backup at $BACKUP_DIR..."
 mkdir "$BACKUP_DIR"
-cp -a . "$BACKUP_DIR"
+rsync -a --exclude="$BACKUP_DIR" ./ "$BACKUP_DIR"
 
 restore_backup() {
   echo "Restoring backup..."
   rm -rf ./* ./.??*
-  cp -a "$BACKUP_DIR"/. .
+  rsync -a "$BACKUP_DIR"/ ./
   rm -rf "$BACKUP_DIR"
   echo "Reverted to original state."
   exit 99
