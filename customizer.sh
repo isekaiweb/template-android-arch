@@ -19,23 +19,24 @@ APPNAME=${2:-Template}
 APPNAME_LOWER=${APPNAME,,}
 SUBDIR=${PACKAGE//.//}
 
-find . -type d -path '*/src/main' -print0 | while IFS= read -r -d $'\0' n; do
+for n in $(find . -type d -path '*/src/main'); do
   echo "Creating $n/kotlin/$SUBDIR"
   mkdir -p "$n/kotlin/$SUBDIR"
 
   SRC="$n/kotlin/com/example/template"
-  if [ -d "$SRC" ] && [ "$(ls -A "$SRC")" ]; then
+  if [ -d "$SRC" ]; then
     echo "Moving files to $n/kotlin/$SUBDIR"
-    mv "$SRC"/* "$n/kotlin/$SUBDIR"
-    # Move empty directories
-    find "$SRC" -type d -empty -print0 | while IFS= read -r -d $'\0' d; do
+    mv "$SRC"/* "$n/kotlin/$SUBDIR" 2>/dev/null
+
+    # Recreate empty directories
+    find "$SRC" -type d -empty | while read -r d; do
       mkdir -p "$n/kotlin/$SUBDIR/${d#$SRC/}"
     done
+
     echo "Removing old $SRC"
     rm -rf "$SRC"
   fi
 done
-
 
 echo "Renaming packages to $PACKAGE"
 find ./ -type f -name "*.kt" -exec sed -i.bak "s/package com\.example\.template/package $PACKAGE/g" {} \;
