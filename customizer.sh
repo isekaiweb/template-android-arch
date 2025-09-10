@@ -15,7 +15,7 @@ if [[ $# -lt 1 ]]; then
 fi
 
 PACKAGE=$1
-APPNAME=$2
+APPNAME=${2:-Template}
 APPNAME_LOWER=${APPNAME,,}
 SUBDIR=${PACKAGE//.//}
 
