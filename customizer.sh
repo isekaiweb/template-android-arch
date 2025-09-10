@@ -26,7 +26,7 @@ do
 
   if [ -d "$n/kotlin/com/example/template" ]; then
     echo "Moving files to $n/kotlin/$SUBDIR"
-    mv "$n/kotlin/com/example/template"/* "$n/kotlin/$SUBDIR"
+    mv "$n/kotlin/com/example/template" "$n/kotlin/$SUBDIR"
     echo "Removing old $n/kotlin/com/example/template"
     rm -rf "$n/kotlin/com"
   fi

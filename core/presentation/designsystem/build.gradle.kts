@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.template.presentation.designsystem"
+    namespace = "com.example.template.core.presentation.designsystem"
     testOptions.unitTests.isIncludeAndroidResources = true
 }
 

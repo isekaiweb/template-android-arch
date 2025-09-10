@@ -1,4 +1,4 @@
-package com.example.template.presentation.ui
+package com.example.template.core.presentation.ui
 
 import androidx.compose.ui.tooling.preview.Preview
 

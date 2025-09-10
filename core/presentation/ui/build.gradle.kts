@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.template.presentation.ui"
+    namespace = "com.example.template.core.presentation.ui"
 }
 
 dependencies {
