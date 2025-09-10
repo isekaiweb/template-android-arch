@@ -19,16 +19,20 @@ APPNAME=${2:-Template}
 APPNAME_LOWER=${APPNAME,,}
 SUBDIR=${PACKAGE//.//}
 
-for n in $(find . -type d -path '*/src/main')
-do
-  echo "Creating $n/java/$SUBDIR"
-  mkdir -p $n/kotlin/$SUBDIR
-  echo "Moving files to $n/kotlin/$SUBDIR"
-  mv $n/kotlin/com/example/template/* $n/kotlin/$SUBDIR
-  find $n/kotlin/com/example/template -type d -empty -exec mv {} $n/kotlin/$SUBDIR \;
-  echo "Removing old $n/java/android/template"
-  rm -rf $n/kotlin/com
+for n in $(find . -type d -path '*/src/main'); do
+  echo "Creating $n/kotlin/$SUBDIR"
+  mkdir -p "$n/kotlin/$SUBDIR"
+
+  SRC="$n/kotlin/com/example/template"
+  if [ -d "$SRC" ] && [ "$(ls -A "$SRC")" ]; then
+    echo "Moving files to $n/kotlin/$SUBDIR"
+    mv "$SRC"/* "$n/kotlin/$SUBDIR"
+    find "$SRC" -type d -empty -exec mv {} "$n/kotlin/$SUBDIR" \;
+    echo "Removing old $SRC"
+    rm -rf "$SRC"
+  fi
 done
+
 
 echo "Renaming packages to $PACKAGE"
 find ./ -type f -name "*.kt" -exec sed -i.bak "s/package com\.example\.template/package $PACKAGE/g" {} \;
