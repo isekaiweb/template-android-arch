@@ -29,13 +29,13 @@ fun configureFlavors(
         }
 
         productFlavors {
-            TemplateFlavor.values().forEach { niaFlavor ->
-                register(niaFlavor.name) {
-                    dimension = niaFlavor.dimension.name
-                    flavorConfigurationBlock(this, niaFlavor)
+            TemplateFlavor.values().forEach { templateFlavor ->
+                register(templateFlavor.name) {
+                    dimension = templateFlavor.dimension.name
+                    flavorConfigurationBlock(this, templateFlavor)
                     if (this@apply is ApplicationExtension && this is ApplicationProductFlavor) {
-                        if (niaFlavor.applicationIdSuffix != null) {
-                            applicationIdSuffix = niaFlavor.applicationIdSuffix
+                        if (templateFlavor.applicationIdSuffix != null) {
+                            applicationIdSuffix = templateFlavor.applicationIdSuffix
                         }
                     }
                 }

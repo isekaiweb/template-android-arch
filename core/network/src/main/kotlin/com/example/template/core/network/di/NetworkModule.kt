@@ -17,10 +17,31 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton
 
+/**
+ * HTTP timeout configurations optimized for mobile network conditions.
+ *
+ * Connection timeout: Time to establish connection to server
+ * Read timeout: Time to read response data from server
+ * Write timeout: Time to send request data to server
+ */
+private const val CONNECTION_TIMEOUT = 20L
+private const val WRITE_TIMEOUT = 60L
+private const val READ_TIMEOUT = 45L
+
+
 @Module
 @InstallIn(SingletonComponent::class)
-internal object NetworkModule {
-
+internal object NetworkModule
+{
+    /**
+     * Provides JSON serialization configuration for all network operations.
+     *
+     * Configuration:
+     * - ignoreUnknownKeys: Prevents crashes when API adds new fields
+     * - Enables forward compatibility with API changes
+     *
+     * @return Configured Json instance for Kotlinx Serialization
+     */
     @Provides
     @Singleton
     fun providesNetworkJson(): Json = Json {
@@ -56,7 +77,7 @@ internal object NetworkModule {
         // We specifically request dagger.Lazy here, so that it's not instantiated from Dagger.
         okHttpCallFactory: dagger.Lazy<Call.Factory>,
         @ApplicationContext application: Context,
-    ): ImageLoader = trace("NiaImageLoader") {
+    ): ImageLoader = trace("TemplateImageLoader") {
         ImageLoader.Builder(application)
             .callFactory { okHttpCallFactory.get() }
             .components { add(SvgDecoder.Factory()) }
