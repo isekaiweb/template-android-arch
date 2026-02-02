@@ -5,7 +5,7 @@ import androidx.tracing.trace
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.util.DebugLogger
-import com.example.template.core.data.network.BuildConfig
+import com.example.template.core.network.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,8 +31,7 @@ private const val READ_TIMEOUT = 45L
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object NetworkModule
-{
+internal object NetworkModule {
     /**
      * Provides JSON serialization configuration for all network operations.
      *
