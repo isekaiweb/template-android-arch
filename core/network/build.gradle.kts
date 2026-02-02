@@ -1,7 +1,3 @@
-import com.android.build.api.variant.BuildConfigField
-import java.io.StringReader
-import java.util.Properties
-
 plugins {
     alias(libs.plugins.template.android.library)
 //    alias(libs.plugins.template.android.library.jacoco)
@@ -30,18 +26,16 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
 }
 
-val backendUrl = providers.fileContents(
-    isolated.rootProject.projectDirectory.file("local.properties")
-).asText.map { text ->
-    val properties = Properties()
-    properties.load(StringReader(text))
-    properties["BACKEND_URL"]
-}.orElse("http://example.com")
-
+// Read properties using shared extension functions
 androidComponents {
-    onVariants {
-        it.buildConfigFields!!.put("BACKEND_URL", backendUrl.map { value ->
-            BuildConfigField(type = "String", value = """"$value"""", comment = null)
-        })
+    onVariants { variant ->
+        variant.buildConfigFields?.put(
+            "BACKEND_URL",
+            createBuildConfigFieldFromProperty("SFA_BACKEND_URL"),
+        )
+        variant.buildConfigFields?.put(
+            "SECRET_TOKEN",
+            createBuildConfigFieldFromProperty("SECRET_TOKEN", "default_token"),
+        )
     }
 }
