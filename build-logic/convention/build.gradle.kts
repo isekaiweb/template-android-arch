@@ -62,14 +62,7 @@ gradlePlugin {
             id = libs.plugins.template.android.library.asProvider().get().pluginId
             implementationClass = "AndroidLibraryConventionPlugin"
         }
-        register("androidFeaturePresentation") {
-            id = libs.plugins.template.android.feature.presentation.get().pluginId
-            implementationClass = "AndroidFeaturePresentationConventionPlugin"
-        }
-        register("androidFeatureData") {
-            id = libs.plugins.template.android.feature.data.get().pluginId
-            implementationClass = "AndroidFeatureDataConventionPlugin"
-        }
+
         register("androidLibraryJacoco") {
             id = libs.plugins.template.android.library.jacoco.get().pluginId
             implementationClass = "AndroidLibraryJacocoConventionPlugin"

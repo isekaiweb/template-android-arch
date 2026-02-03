@@ -23,10 +23,21 @@ class HiltConventionPlugin : Plugin<Project> {
 
             /** Add support for Android modules, based on [AndroidBasePlugin] */
             pluginManager.withPlugin("com.android.base") {
-                apply(plugin = "dagger.hilt.android.plugin")
+                // Always add Hilt dependencies (all Android modules need these)
                 dependencies {
                     "implementation"(libs.findLibrary("hilt.android").get())
                 }
+
+                // Apply Hilt Android plugin for supported module types
+                pluginManager.withPlugin("com.android.application") {
+                    apply(plugin = "dagger.hilt.android.plugin")
+                }
+
+                pluginManager.withPlugin("com.android.library") {
+                    apply(plugin = "dagger.hilt.android.plugin")
+                }
+
+                // Dynamic Feature Modules: do NOT apply Hilt plugin; they are aggregated by the base app
             }
         }
     }

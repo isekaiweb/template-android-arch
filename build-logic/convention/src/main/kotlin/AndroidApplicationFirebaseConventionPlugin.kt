@@ -14,6 +14,7 @@ class AndroidApplicationFirebaseConventionPlugin : Plugin<Project> {
             apply(plugin = "com.google.gms.google-services")
             apply(plugin = "com.google.firebase.firebase-perf")
             apply(plugin = "com.google.firebase.crashlytics")
+            apply(plugin = "com.google.firebase.appdistribution")
 
             dependencies {
                 val bom = libs.findLibrary("firebase-bom").get()
@@ -34,11 +35,11 @@ class AndroidApplicationFirebaseConventionPlugin : Plugin<Project> {
 
             extensions.configure<ApplicationExtension> {
                 buildTypes.configureEach {
-                    // Disable the Crashlytics mapping file upload. This feature should only be
+                    // This feature should only be
                     // enabled if a Firebase backend is available and configured in
                     // google-services.json.
                     configure<CrashlyticsExtension> {
-                        mappingFileUploadEnabled = false
+                        mappingFileUploadEnabled = true
                     }
                 }
             }

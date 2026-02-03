@@ -1,4 +1,5 @@
 import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.dsl.DynamicFeatureExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.dsl.Lint
 import org.gradle.api.Plugin
@@ -15,6 +16,9 @@ class AndroidLintConventionPlugin : Plugin<Project> {
 
                 pluginManager.hasPlugin("com.android.library") ->
                     configure<LibraryExtension> { lint(Lint::configure) }
+
+                pluginManager.hasPlugin("com.android.dynamic-feature") ->
+                    configure<DynamicFeatureExtension> { lint(Lint::configure) }
 
                 else -> {
                     apply(plugin = "com.android.lint")

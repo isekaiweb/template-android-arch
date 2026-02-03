@@ -7,11 +7,12 @@ import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
-class AndroidFeatureDataConventionPlugin : Plugin<Project> {
+class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "template.android.library")
             apply(plugin = "template.hilt")
+            apply(plugin ="kotlin-parcelize")
             apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
 
             extensions.configure<LibraryExtension> {
@@ -20,13 +21,23 @@ class AndroidFeatureDataConventionPlugin : Plugin<Project> {
             }
 
             dependencies {
-                "implementation"(project(":core:network"))
+                "implementation"(project(":core:ui"))
                 "implementation"(project(":core:common"))
+                "implementation"(project(":core:designsystem"))
 
-                "implementation"(libs.findLibrary("retrofit.core").get())
+
+                "implementation"(libs.findLibrary("androidx.hilt.navigation.compose").get())
+                "implementation"(libs.findLibrary("androidx.lifecycle.runtimeCompose").get())
+                "implementation"(libs.findLibrary("androidx.lifecycle.viewModelCompose").get())
+                "implementation"(libs.findLibrary("androidx.navigation.compose").get())
                 "implementation"(libs.findLibrary("androidx.tracing.ktx").get())
                 "implementation"(libs.findLibrary("kotlinx.serialization.json").get())
-                "implementation"(libs.findLibrary("retrofit.kotlin.serialization").get())
+                 "implementation"(libs.findLibrary("timber").get())
+
+                "testImplementation"(libs.findLibrary("androidx.navigation.testing").get())
+                "androidTestImplementation"(
+                    libs.findLibrary("androidx.lifecycle.runtimeTesting").get(),
+                )
             }
         }
     }

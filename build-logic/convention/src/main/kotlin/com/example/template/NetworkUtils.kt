@@ -15,12 +15,9 @@ import java.util.Properties
  * @param defaultValue The default value if property is not found
  * @return Provider<String> containing the property value
  */
-private fun Project.readPropertyFromLocalProperties(
-    key: String,
-    defaultValue: String = "http://example.com",
-): Provider<String> =
+private fun Project.readPropertyFromLocalProperties(key: String, defaultValue: String = "http://example.com"): Provider<String> =
     providers.fileContents(
-        isolated.rootProject.projectDirectory.file("local.properties"),
+        isolated.rootProject.projectDirectory.file("local.properties")
     ).asText.map { text ->
         val properties = Properties()
         properties.load(StringReader(text))
@@ -43,8 +40,5 @@ private fun createBuildConfigField(propertyProvider: Provider<String>): Provider
  * @param defaultValue The default value if property is not found
  * @return Provider<BuildConfigField> ready for use in androidComponents
  */
-fun Project.createBuildConfigFieldFromProperty(
-    key: String,
-    defaultValue: String = "http://example.com",
-): Provider<BuildConfigField<String>> =
+fun Project.createBuildConfigFieldFromProperty(key: String, defaultValue: String = "http://example.com"): Provider<BuildConfigField<String>> =
     createBuildConfigField(readPropertyFromLocalProperties(key, defaultValue))

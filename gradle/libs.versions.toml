@@ -14,6 +14,7 @@ androidxComposeRuntimeTracing = "1.7.6"
 androidxCore = "1.15.0"
 androidxCoreSplashscreen = "1.0.1"
 androidxDataStore = "1.1.1"
+androidxPaging = "3.3.6"
 androidxEspresso = "3.6.1"
 androidxHiltNavigationCompose = "1.2.0"
 androidxLifecycle = "2.8.7"
@@ -30,11 +31,13 @@ androidxTracing = "1.3.0-alpha02"
 androidxUiAutomator = "2.3.0"
 androidxWindowManager = "1.3.0"
 androidxWork = "2.10.0"
+chucker = "4.0.0"
 coil = "2.7.0"
 dependencyGuard = "0.5.0"
 firebaseBom = "33.7.0"
 firebaseCrashlyticsPlugin = "3.0.6"
 firebasePerfPlugin = "2.0.1"
+firebaseAppDistributionPlugin = "5.1.1"
 gmsPlugin = "4.4.2"
 googleOss = "17.1.0"
 googleOssPlugin = "0.10.8"
@@ -58,6 +61,9 @@ roborazzi = "1.39.0"
 room = "2.7.2"
 truth = "1.4.4"
 turbine = "1.2.0"
+uiTextGoogleFonts = "1.9.0"
+timber = "5.0.1"
+featureDeliveryKtx = "2.1.0"
 
 [bundles]
 androidx-compose-ui-test = ["androidx-compose-ui-test", "androidx-compose-ui-testManifest"]
@@ -90,6 +96,9 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
 androidx-dataStore = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDataStore" }
 androidx-dataStore-core = { group = "androidx.datastore", name = "datastore-core", version.ref = "androidxDataStore" }
+androidx-paging-compose = { group = "androidx.paging", name="paging-compose", version.ref = "androidxPaging" }
+androidx-paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "androidxPaging" }
+androidx-compose-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
 androidx-lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtimeTesting = { group = "androidx.lifecycle", name = "lifecycle-runtime-testing", version.ref = "androidxLifecycle" }
@@ -109,6 +118,8 @@ androidx-tracing-ktx = { group = "androidx.tracing", name = "tracing-ktx", versi
 androidx-window-core = { group = "androidx.window", name = "window-core", version.ref = "androidxWindowManager" }
 androidx-work-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidxWork" }
 androidx-work-testing = { group = "androidx.work", name = "work-testing", version.ref = "androidxWork" }
+chucker-library = { group = "com.github.chuckerteam.chucker", name = "library", version.ref = "chucker" }
+chucker-library-no-op = { group = "com.github.chuckerteam.chucker", name = "library-no-op", version.ref = "chucker" }
 coil-kt = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 coil-kt-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
@@ -149,6 +160,7 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
 # Dependencies of the included build-logic
 android-gradleApiPlugin = { group = "com.android.tools.build", name = "gradle-api", version.ref = "androidGradlePlugin" }
@@ -159,6 +171,8 @@ firebase-performance-gradlePlugin = { group = "com.google.firebase", name = "per
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+feature-delivery-ktx = { group = "com.google.android.play", name = "feature-delivery-ktx", version.ref = "featureDeliveryKtx" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -170,6 +184,7 @@ compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }
+firebase-appdistribution = { id = "com.google.firebase.appdistribution", version.ref = "firebaseAppDistributionPlugin" }
 gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -180,6 +195,7 @@ google-osslicenses = { id = "com.google.android.gms.oss-licenses-plugin", versio
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
 room = { id = "androidx.room", version.ref = "room" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 
 # Plugins defined by this project
 template-android-application = { id = "template.android.application" }
@@ -187,10 +203,13 @@ template-android-application-compose = { id = "template.android.application.comp
 template-android-application-firebase = { id = "template.android.application.firebase" }
 template-android-application-flavors = { id = "template.android.application.flavors" }
 template-android-application-jacoco = { id = "template.android.application.jacoco" }
-template-android-feature-presentation = { id = "template.android.feature.presentation" }
-template-android-feature-data = { id = "template.android.feature.data" }
+template-android-feature = { id = "template.android.feature" }
+template-android-dynamic-feature = { id = "template.android.dynamic.feature" }
+template-android-network = { id = "template.android.network" }
 template-android-library = { id = "template.android.library" }
+template-android-libraryDynamicfeature = { id = "template.android.library.dynamicfeature" }
 template-android-library-compose = { id = "template.android.library.compose" }
+template-android-library-composeDynamicfeature = { id = "template.android.library.compose.dynamicfeature" }
 template-android-library-jacoco = { id = "template.android.library.jacoco" }
 template-android-lint = { id = "template.android.lint" }
 template-android-room = { id = "template.android.room" }
