@@ -94,7 +94,7 @@ echo "Step 8: Cleanup backup files..."
 find . -name "*.bak" -type f -delete
 
 echo "Step 9: Remove README, script, .git directory, and git root files..."
-rm -rf README.md customizer.sh .git/ gitroot .gitignore
+rm -rf README.md customizer.sh .git/ .github/
 
 rm -rf "$BACKUP_DIR"
 echo "All done! Your project has been customized."
